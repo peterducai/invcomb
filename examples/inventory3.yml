@@ -1,0 +1,12 @@
+[aix1]
+aixnode6
+aixnode7
+
+
+[aix2]
+aixnode8
+aixnode9
+
+[aixservers:children]
+aix1
+aix2
