@@ -23,7 +23,7 @@ func main() {
 	}
 	fmt.Println(dir)
 
-	invcomb.ReadFile(*invInput)
+	invcomb.ProcessInput(*invInput)
 
 	fmt.Printf("\nwill create %s in %s\n", *invOutput, dir)
 }

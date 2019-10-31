@@ -8,6 +8,17 @@ import (
 	"strings"
 )
 
+//ProcessInput process inventories
+func ProcessInput(inp string) {
+	// Split on comma.
+	result := strings.Split(inp, ",")
+
+	// Display all elements.
+	for i := range result {
+		ReadFile(result[i])
+	}
+}
+
 //ReadFile to read inventories
 func ReadFile(invfile string) {
 
