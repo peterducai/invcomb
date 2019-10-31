@@ -25,5 +25,5 @@ func main() {
 
 	invcomb.ProcessInput(*invInput)
 
-	fmt.Printf("\nwill create %s in %s\n", *invOutput, dir)
+	fmt.Printf("\n\ngoing to create %s in %s\n", *invOutput, dir)
 }

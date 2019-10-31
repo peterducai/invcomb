@@ -8,7 +8,7 @@ inventory combinator
 
 # use
 
-> invcomb --input="inventory1,inventory2" --output="newinv"
+> invcomb --input="examples/inventory1.yml,examples/inventory2.yml" --output="xxx.yml"
 
 # Scenario
 

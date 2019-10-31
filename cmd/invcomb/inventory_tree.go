@@ -8,10 +8,8 @@ import (
 	"strings"
 )
 
-
-
-//ProcessInput process inventories
-func ProcessInput(inp string) {
+//xProcessInput process inventories
+func xProcessInput(inp string) {
 	// Split on comma.
 	result := strings.Split(inp, ",")
 
@@ -21,8 +19,8 @@ func ProcessInput(inp string) {
 	}
 }
 
-//ReadFile to read inventories
-func ReadFile(invfile string) {
+//xReadFile to read inventories
+func xReadFile(invfile string) {
 	fmt.Printf("\nreading file %s\n", invfile)
 
 	file, err := os.Open(invfile)
