@@ -1,5 +1,5 @@
 # invcomb
-inventory combinator
+(Ansible) inventory combinator tool for merging several inventories to one.
 
 # install 
 
