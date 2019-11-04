@@ -3,6 +3,9 @@ wins1
 wins2
 wins3
 
+[winservers:vars]
+winrm=yes
+
 
 [linuxservers]
 lin1
@@ -15,6 +18,9 @@ sol2
 sol3
 sol4
 sol5
+
+[solaris:vars]
+audit=yes
 
 [maininfra:children]
 winservers

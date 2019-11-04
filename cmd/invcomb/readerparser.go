@@ -3,17 +3,19 @@ package invcomb
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strings"
 )
 
-
-
 //ProcessInput process inventories
 func ProcessInput(inp string) {
 	// Split on comma.
 	result := strings.Split(inp, ",")
+
+	//TODO
+	InitInventory()
 
 	// Display all elements.
 	for i := range result {
@@ -33,8 +35,28 @@ func ReadFile(invfile string) {
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
+
 		line := scanner.Text()
+
+		// read groups
 		if strings.HasPrefix(line, "[") {
+			fmt.Printf("\n- %s", line)
+			AddGroup(line)
+			// var grp = Group{}
+			// grp.Name = line
+			// grp.Children = nil
+			// grp.Nodes = nil
+			// grp.Variables = nil
+			// Inv.Groups = append(Inv.Groups, grp)
+		}
+
+		// read children
+		if strings.HasSuffix(line, ":children]") {
+			fmt.Printf("\n- %s", line)
+		}
+
+		// read vars
+		if strings.HasSuffix(line, ":vars]") {
 			fmt.Printf("\n- %s", line)
 		}
 
@@ -43,4 +65,45 @@ func ReadFile(invfile string) {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func writeInventory() {
+	f, err := os.Create("test.txt")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	defer f.Close()
+
+	if _, err = io.WriteString(f, "hello world"); err != nil {
+		fmt.Println(err)
+	}
+
+	f.Sync()
+	return
+}
+
+func wr() {
+	f, err := os.Create("lines")
+	if err != nil {
+		fmt.Println(err)
+		f.Close()
+		return
+	}
+	d := []string{"Welcome to the world of Go1.", "Go is a compiled language.", "It is easy to learn Go."}
+
+	for _, v := range d {
+		fmt.Fprintln(f, v)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	}
+	err = f.Close()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("file written successfully")
 }
