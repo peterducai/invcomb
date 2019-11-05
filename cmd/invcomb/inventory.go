@@ -32,7 +32,8 @@ import (
 
 //Variable is var with = value
 type Variable struct {
-	vr string
+	key   string
+	value string
 }
 
 //Node or host
@@ -77,22 +78,29 @@ func InitInventory(nm string) {
 }
 
 //AddGroup add group to inventory  TODO: fix
-func AddGroup(g string) {
-	// fmt.Println("adding group --------------- ")
-	for _, s := range Inv.Groups {
-		fmt.Printf("> %s", s)
-		if s.Name != g {
-			var gr = new(Group)
-			gr.Name = g
-			Inv.Groups = append(Inv.Groups, *gr)
+func AddGroup(gr string) {
+
+	var duplicate = false
+	for _, e := range Inv.Groups {
+		if e.Name == gr {
+			duplicate = true
 		}
+	}
+
+	if !duplicate {
+		//fmt.Printf("\n adding group %s", gr)
+		var grp = new(Group)
+		grp.Name = gr
+		Inv.Groups = append(Inv.Groups, *grp)
 	}
 
 }
 
 //AddNode add node to group
-func AddNode(g Group, nd Node) {
-
+func AddNode(g Group, nd string) {
+	var nod = new(Node)
+	nod.Name = nd
+	// Inv.Nodes = append(Inv.Groups, *nod)
 }
 
 //AddChildren add children to group
