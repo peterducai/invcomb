@@ -48,9 +48,7 @@ func ProcessInput(inp string) {
 func ReadFile(invfile string) {
 	var lastGroup string
 
-	fmt.Println("-----------------")
-	//fmt.Printf("%+v\n", Inv)
-	fmt.Printf("\nreading file %s\n", invfile)
+	fmt.Printf("\n------------->  reading file %s\n", invfile)
 
 	file, err := os.Open(invfile)
 	if err != nil {
@@ -68,13 +66,15 @@ func ReadFile(invfile string) {
 			//CHILDREN
 			var groupl = line[:len(line)-len(":children]")]
 			groupl = groupl + "]"
-			fmt.Printf("\ngroup %s has following children:", lastGroup)
+			fmt.Printf("\ngroup %s has following children:", groupl)
+			lastGroup = line
 		} else if strings.HasSuffix(line, ":vars]") {
 			// VARIABLES TAG
 			var groupv = line[:len(line)-len(":vars]")]
 			groupv = groupv + "]"
-			fmt.Printf("\n%s - %s", lastGroup, line)
 			lastGroup = line
+			fmt.Printf("\ngroup %s has a vars", groupv)
+
 		} else if strings.HasPrefix(line, "[") {
 			// GROUPS
 			fmt.Printf("\ng- %s", line)
@@ -86,6 +86,9 @@ func ReadFile(invfile string) {
 		} else if strings.HasSuffix(lastGroup, ":vars]") {
 			// ACTUAL VARIABLES
 			fmt.Printf("\nvar- %s\n", line)
+		} else if strings.HasSuffix(lastGroup, ":children]") {
+			// ACTUAL VARIABLES
+			fmt.Printf("\nchild- %s\n", line)
 		} else {
 			var vrs = strings.Split(line, " ")
 			if len(vrs) == 1 {
