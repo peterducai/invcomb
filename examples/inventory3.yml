@@ -10,3 +10,7 @@ aixnode9
 [aixservers:children]
 aix1
 aix2
+
+[aixservers:vars]
+windows=no
+linux=no

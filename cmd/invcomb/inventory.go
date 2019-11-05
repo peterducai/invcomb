@@ -1,6 +1,10 @@
 package invcomb
 
-import "time"
+import (
+	"fmt"
+	"os/user"
+	"time"
+)
 
 //jumper ansible_port=5555 ansible_host=192.0.2.50
 //[databases]
@@ -60,27 +64,31 @@ var Inv Inventory
 
 //InitInventory initialize inventory
 func InitInventory(nm string) {
+	fmt.Printf("INIT OF INVENTORY %s ------------------\n\n", nm)
+	user, err := user.Current()
+	if err != nil {
+		panic(err)
+	}
 	Inv.Author = "author_name" //TODO: get username
 	Inv.Date = time.Now().Format(time.RFC850)
-	// emtpyGroup.Name = "x"
-	// emtpyGroup.Nodes = append(emtpyGroup.Nodes, *emptyNode)
-	// emtpyGroup.Children = append(emtpyGroup.Nodes, "")
+	Inv.Name = nm
+	Inv.Author = user.Name
 
-	// Inv.Author = "my author"
-	// Inv.Date = "today"
-	// Inv.Groups = append(Inv.Groups, *emtpyGroup)
-	// Inv.Nodes = append(Inv.Groups, *emptyNode)
-	// Inv.Variables = append(Inv.Groups, *emptyVar)
+	fmt.Printf("%+v\n", Inv)
 }
 
-//AddGroup add group to inventory
+//AddGroup add group to inventory  TODO: fix
 func AddGroup(g string) {
-	// var gr = new(Group)
-	// gr.Name = g
-	// gr.Nodes = append(gr.Nodes, nil)
-	// gr.Children = nil
-	// gr.Variables = nil
-	// Inv = append(Inv, *gr)
+	// fmt.Println("adding group --------------- ")
+	for _, s := range Inv.Groups {
+		fmt.Printf("> %s", s)
+		if s.Name != g {
+			var gr = new(Group)
+			gr.Name = g
+			Inv.Groups = append(Inv.Groups, *gr)
+		}
+	}
+
 }
 
 //AddNode add node to group

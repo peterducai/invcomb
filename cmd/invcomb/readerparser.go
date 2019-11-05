@@ -14,6 +14,8 @@ func ProcessInput(inp string) {
 	// Split on comma.
 	result := strings.Split(inp, ",")
 
+	//TODO: look for all inventory file
+
 	// Display all elements.
 	for i := range result {
 		ReadFile(result[i])
@@ -24,6 +26,8 @@ func ProcessInput(inp string) {
 func ReadFile(invfile string) {
 	var lastGroup string
 
+	fmt.Println("-----------------")
+	fmt.Printf("%+v\n", Inv)
 	fmt.Printf("\nreading file %s\n", invfile)
 
 	file, err := os.Open(invfile)
@@ -37,19 +41,29 @@ func ReadFile(invfile string) {
 	for scanner.Scan() {
 
 		line := scanner.Text()
-		fmt.Printf("\nlast group is %s\n", lastGroup)
+		// fmt.Printf("\nlast group is %s\n", lastGroup)
 
-		// read groups
 		if strings.HasSuffix(line, ":children]") {
-			fmt.Printf("\nch- %s", line)
+			//CHILDREN
+			var groupl = line[:len(line)-len(":children]")]
+			groupl = groupl + "]"
+			lastGroup = groupl
+			fmt.Printf("\ngroup %s has following children:", lastGroup)
 		} else if strings.HasSuffix(line, ":vars]") {
-			fmt.Printf("\nv- %s", line)
+			// VARIABLES
+			lastGroup = line
+			fmt.Printf("\n%s - %s", lastGroup, line)
 		} else if strings.HasPrefix(line, "[") {
+			// GROUPS
 			fmt.Printf("\ng- %s", line)
 			AddGroup(line)
 			lastGroup = line
+		} else if strings.HasPrefix(line, "#") || len(line) == 0 || line == "---" {
+			fmt.Println("")
+		} else if strings.HasSuffix(lastGroup, ":vars]") {
+			fmt.Printf("\nvar- %s", line)
 		} else {
-			fmt.Printf("\nnode- %s", line)
+			fmt.Printf("\nnode- %s", line) //TODO: check if node only or with vars
 		}
 
 	}
@@ -59,8 +73,8 @@ func ReadFile(invfile string) {
 	}
 }
 
-func writeInventory() {
-	f, err := os.Create("test.txt")
+func writeInventory(path string) {
+	f, err := os.Create(path)
 	if err != nil {
 		fmt.Println(err)
 		return
