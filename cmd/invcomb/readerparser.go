@@ -22,7 +22,6 @@ func ProcessInput(inp string) {
 	// Split on comma.
 	result := strings.Split(inp, ",")
 
-	//TODO: look for all inventory file
 	dir, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
@@ -64,29 +63,36 @@ func ReadFile(invfile string) {
 	for scanner.Scan() {
 
 		line := scanner.Text()
-		// fmt.Printf("\nlast group is %s\n", lastGroup)
 
 		if strings.HasSuffix(line, ":children]") {
 			//CHILDREN
 			var groupl = line[:len(line)-len(":children]")]
 			groupl = groupl + "]"
-			lastGroup = groupl
 			fmt.Printf("\ngroup %s has following children:", lastGroup)
 		} else if strings.HasSuffix(line, ":vars]") {
-			// VARIABLES
-			lastGroup = line
+			// VARIABLES TAG
+			var groupv = line[:len(line)-len(":vars]")]
+			groupv = groupv + "]"
 			fmt.Printf("\n%s - %s", lastGroup, line)
+			lastGroup = line
 		} else if strings.HasPrefix(line, "[") {
 			// GROUPS
 			fmt.Printf("\ng- %s", line)
 			AddGroup(line)
 			lastGroup = line
 		} else if strings.HasPrefix(line, "#") || len(line) == 0 || line == "---" {
+			// EMPTY LINES AND COMMENTS
 			fmt.Println("")
 		} else if strings.HasSuffix(lastGroup, ":vars]") {
-			fmt.Printf("\nvar- %s", line)
+			// ACTUAL VARIABLES
+			fmt.Printf("\nvar- %s\n", line)
 		} else {
-			fmt.Printf("\nnode- %s", line) //TODO: check if node only or with vars
+			var vrs = strings.Split(line, " ")
+			if len(vrs) == 1 {
+				fmt.Printf("\nnode- %s\n", line)
+			} else {
+				fmt.Printf("\nnode & vars- %s\n", line)
+			}
 		}
 
 	}

@@ -4,7 +4,7 @@ aixnode7
 
 
 [aix2]
-aixnode8
+aixnode8 ansible_host=n8.example.com
 aixnode9
 
 [aixservers:children]
