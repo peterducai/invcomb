@@ -69,7 +69,6 @@ func InitInventory(nm string) {
 	if err != nil {
 		panic(err)
 	}
-	Inv.Author = "author_name" //TODO: get username
 	Inv.Date = time.Now().Format(time.RFC850)
 	Inv.Name = nm
 	Inv.Author = user.Name

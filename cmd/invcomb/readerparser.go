@@ -9,17 +9,40 @@ import (
 	"strings"
 )
 
+func fileExists(filename string) bool {
+	info, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
+}
+
 //ProcessInput process inventories
 func ProcessInput(inp string) {
 	// Split on comma.
 	result := strings.Split(inp, ",")
 
 	//TODO: look for all inventory file
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(dir)
+	var allf = dir
+	allf = allf + "/group_vars/all"
+	if fileExists(allf) {
+		ReadFile(allf)
+	} else {
+		fmt.Printf("\n%s NOT FOUND\n", allf)
+	}
 
 	// Display all elements.
 	for i := range result {
 		ReadFile(result[i])
 	}
+
+	fmt.Println("===END==============================================")
+	fmt.Printf("%+v\n", Inv)
 }
 
 //ReadFile to read inventories
@@ -27,7 +50,7 @@ func ReadFile(invfile string) {
 	var lastGroup string
 
 	fmt.Println("-----------------")
-	fmt.Printf("%+v\n", Inv)
+	//fmt.Printf("%+v\n", Inv)
 	fmt.Printf("\nreading file %s\n", invfile)
 
 	file, err := os.Open(invfile)
