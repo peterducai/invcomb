@@ -105,7 +105,8 @@ func ReadFile(invfile string) {
 	}
 }
 
-func writeInventory(path string) {
+//WriteInventory writes file
+func WriteInventory(path string, single bool) {
 	f, err := os.Create(path)
 	if err != nil {
 		fmt.Println(err)

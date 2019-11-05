@@ -15,7 +15,7 @@ func main() {
 
 	invInput := flag.String("input", "define_input_inventories", "inventories to combine")
 	invOutput := flag.String("output", "examples/generated_inventory.yml", "inventory to create from input inventories")
-	//boolPtr := flag.Bool("fork", false, "a bool")
+	singleFile := flag.Bool("singlefile", true, "create single inventory file with all vars included.. dont generate host_vars and group_vars")
 	flag.Parse()
 
 	dir, err := os.Getwd()
@@ -28,6 +28,8 @@ func main() {
 	invcomb.InitInventory(*invOutput)
 
 	invcomb.ProcessInput(*invInput)
+
+	invcomb.WriteInventory(*invOutput, *singleFile)
 
 	fmt.Printf("\n\ngoing to create %s in %s\n", *invOutput, dir)
 
