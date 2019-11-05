@@ -26,6 +26,8 @@ func main() {
 
 	PrintMemUsage()
 
+	invcomb.InitInventory(*invOutput)
+
 	invcomb.ProcessInput(*invInput)
 
 	fmt.Printf("\n\ngoing to create %s in %s\n", *invOutput, dir)

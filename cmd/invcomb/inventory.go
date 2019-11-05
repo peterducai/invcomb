@@ -1,5 +1,7 @@
 package invcomb
 
+import "time"
+
 //jumper ansible_port=5555 ansible_host=192.0.2.50
 //[databases]
 //db-[a:f].example.com
@@ -54,22 +56,21 @@ type Inventory struct {
 }
 
 //Inv inventory
-var Inv = new(Inventory)
-var emptyVar = new(Variable)
-var emtpyGroup = new(Group)
-var emptyNode = new(Node)
+var Inv Inventory
 
 //InitInventory initialize inventory
-func InitInventory() {
-	emtpyGroup.Name = "x"
-	emtpyGroup.Nodes = append(emtpyGroup.Nodes, *emptyNode)
-	emtpyGroup.Children = append(emtpyGroup.Nodes, [])
+func InitInventory(nm string) {
+	Inv.Author = "author_name" //TODO: get username
+	Inv.Date = time.Now().Format(time.RFC850)
+	// emtpyGroup.Name = "x"
+	// emtpyGroup.Nodes = append(emtpyGroup.Nodes, *emptyNode)
+	// emtpyGroup.Children = append(emtpyGroup.Nodes, "")
 
-	Inv.Author = "my author"
-	Inv.Date = "today"
-	Inv.Groups = append(Inv.Groups, *emtpyGroup)
-	Inv.Nodes = append(Inv.Groups, *emptyNode)
-	Inv.Variables = append(Inv.Groups, *emptyVar)
+	// Inv.Author = "my author"
+	// Inv.Date = "today"
+	// Inv.Groups = append(Inv.Groups, *emtpyGroup)
+	// Inv.Nodes = append(Inv.Groups, *emptyNode)
+	// Inv.Variables = append(Inv.Groups, *emptyVar)
 }
 
 //AddGroup add group to inventory

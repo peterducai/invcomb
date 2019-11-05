@@ -14,9 +14,6 @@ func ProcessInput(inp string) {
 	// Split on comma.
 	result := strings.Split(inp, ",")
 
-	//TODO
-	InitInventory()
-
 	// Display all elements.
 	for i := range result {
 		ReadFile(result[i])
@@ -25,6 +22,8 @@ func ProcessInput(inp string) {
 
 //ReadFile to read inventories
 func ReadFile(invfile string) {
+	var lastGroup string
+
 	fmt.Printf("\nreading file %s\n", invfile)
 
 	file, err := os.Open(invfile)
@@ -32,32 +31,25 @@ func ReadFile(invfile string) {
 		log.Fatal(err)
 	}
 	defer file.Close()
+	lastGroup = "ungrouped"
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 
 		line := scanner.Text()
+		fmt.Printf("\nlast group is %s\n", lastGroup)
 
 		// read groups
-		if strings.HasPrefix(line, "[") {
-			fmt.Printf("\n- %s", line)
-			AddGroup(line)
-			// var grp = Group{}
-			// grp.Name = line
-			// grp.Children = nil
-			// grp.Nodes = nil
-			// grp.Variables = nil
-			// Inv.Groups = append(Inv.Groups, grp)
-		}
-
-		// read children
 		if strings.HasSuffix(line, ":children]") {
-			fmt.Printf("\n- %s", line)
-		}
-
-		// read vars
-		if strings.HasSuffix(line, ":vars]") {
-			fmt.Printf("\n- %s", line)
+			fmt.Printf("\nch- %s", line)
+		} else if strings.HasSuffix(line, ":vars]") {
+			fmt.Printf("\nv- %s", line)
+		} else if strings.HasPrefix(line, "[") {
+			fmt.Printf("\ng- %s", line)
+			AddGroup(line)
+			lastGroup = line
+		} else {
+			fmt.Printf("\nnode- %s", line)
 		}
 
 	}
