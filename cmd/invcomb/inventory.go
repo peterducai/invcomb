@@ -77,7 +77,7 @@ func InitInventory(nm string) {
 	fmt.Printf("%+v\n", Inv)
 }
 
-//AddGroup add group to inventory  TODO: fix
+//AddGroup add group to inventory
 func AddGroup(gr string) {
 
 	var duplicate = false
