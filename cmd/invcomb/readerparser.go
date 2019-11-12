@@ -115,34 +115,10 @@ func WriteInventory(path string, single bool) {
 
 	defer f.Close()
 
-	if _, err = io.WriteString(f, "hello world"); err != nil {
+	if _, err = io.WriteString(f, "# Author: "+Inv.Author+"\n# "+Inv.Date); err != nil {
 		fmt.Println(err)
 	}
 
 	f.Sync()
 	return
-}
-
-func wr() {
-	f, err := os.Create("lines")
-	if err != nil {
-		fmt.Println(err)
-		f.Close()
-		return
-	}
-	d := []string{"Welcome to the world of Go1.", "Go is a compiled language.", "It is easy to learn Go."}
-
-	for _, v := range d {
-		fmt.Fprintln(f, v)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-	}
-	err = f.Close()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println("file written successfully")
 }

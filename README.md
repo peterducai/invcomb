@@ -5,6 +5,8 @@
 
 > go get github.com/peterducai/invcomb
 
+> cd $GOPATH/src/github.com/peterducai/invcomb
+> ./rebuild.sh
 
 # use
 
