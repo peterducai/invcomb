@@ -79,6 +79,7 @@ func ReadFile(invfile string) {
 			// GROUPS
 			fmt.Printf("\ng- %s", line)
 			AddGroup(line)
+			fileExists("groupvars/" + line + ".yml") //check if file exist!
 			lastGroup = line
 		} else if strings.HasPrefix(line, "#") || len(line) == 0 || line == "---" {
 			// EMPTY LINES AND COMMENTS
