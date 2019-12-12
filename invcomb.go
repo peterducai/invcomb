@@ -23,7 +23,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	PrintMemUsage()
+	//PrintMemUsage()
 
 	invcomb.InitInventory(*invOutput)
 
@@ -34,7 +34,7 @@ func main() {
 	fmt.Printf("\n\ngoing to create %s in %s\n", *invOutput, dir)
 
 	// runtime.GC()
-	PrintMemUsage()
+	//PrintMemUsage()
 }
 
 //PrintMemUsage show memory usage

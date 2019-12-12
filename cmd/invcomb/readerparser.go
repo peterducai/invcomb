@@ -3,11 +3,14 @@ package invcomb
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"strings"
 )
+
+var lastGroup = "ungrouped"
+var childrenpart = false
+var variablespart = false
 
 func fileExists(filename string) bool {
 	info, err := os.Stat(filename)
@@ -46,7 +49,6 @@ func ProcessInput(inp string) {
 
 //ReadFile to read inventories
 func ReadFile(invfile string) {
-	var lastGroup string
 
 	fmt.Printf("\n------------->  reading file %s\n", invfile)
 
@@ -55,7 +57,6 @@ func ReadFile(invfile string) {
 		log.Fatal(err)
 	}
 	defer file.Close()
-	lastGroup = "ungrouped"
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -68,6 +69,7 @@ func ReadFile(invfile string) {
 			groupl = groupl + "]"
 			fmt.Printf("\ngroup %s has following children:", groupl)
 			lastGroup = line
+			childrenpart = true
 		} else if strings.HasSuffix(line, ":vars]") {
 			// VARIABLES TAG
 			var groupv = line[:len(line)-len(":vars]")]
@@ -108,6 +110,7 @@ func ReadFile(invfile string) {
 
 //WriteInventory writes file
 func WriteInventory(path string, single bool) {
+
 	f, err := os.Create(path)
 	if err != nil {
 		fmt.Println(err)
@@ -116,8 +119,8 @@ func WriteInventory(path string, single bool) {
 
 	defer f.Close()
 
-	if _, err = io.WriteString(f, "# Author: "+Inv.Author+"\n# "+Inv.Date); err != nil {
-		fmt.Println(err)
+	if _, err = fmt.Fprintf(f, "%+v", Inv); err != nil {
+		panic(err)
 	}
 
 	f.Sync()
