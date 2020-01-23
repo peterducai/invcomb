@@ -63,6 +63,23 @@ type Inventory struct {
 //Inv inventory
 var Inv Inventory
 
+func indexOfGroup(element string, data Group) int {
+	for k, v := range Inv.Groups {
+		if element == v.Name {
+			return k
+		}
+	}
+	return -1
+}
+
+func getTotalWeight(dataarr []Group) int {
+	total := 0
+	for _, elem := range dataarr {
+		total += elem.Groups
+	}
+	return total
+}
+
 //InitInventory initialize inventory
 func InitInventory(nm string) {
 	fmt.Printf("INIT OF INVENTORY %s ------------------\n\n", nm)
@@ -97,10 +114,17 @@ func AddGroup(gr string) {
 }
 
 //AddNode add node to group
-func AddNode(g Group, nd string) {
+func AddNode(g Group, nn string) {
 	var nod = new(Node)
-	nod.Name = nd
-	// Inv.Nodes = append(Inv.Groups, *nod)
+	nod.Name = nn
+
+	// var pos = indexOfGroup(nn, g)
+
+	// if pos == -1 {
+	// 	println("group not found")
+	// }
+	//TODO: Inv.Nodes = append(Inv.Groups, *nod)
+
 }
 
 //AddChildren add children to group

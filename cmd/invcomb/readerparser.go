@@ -90,7 +90,7 @@ func ReadFile(invfile string) {
 			// ACTUAL VARIABLES
 			fmt.Printf("\nvar- %s\n", line)
 		} else if strings.HasSuffix(lastGroup, ":children]") {
-			// ACTUAL VARIABLES
+			// ACTUAL CHILDREN
 			fmt.Printf("\nchild- %s\n", line)
 		} else {
 			var vrs = strings.Split(line, " ")
