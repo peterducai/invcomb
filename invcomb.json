@@ -1,0 +1,18 @@
+{
+    "paths": {
+      "ansible": {
+        "root": "/etc/ansible/",
+        "prefixes": [
+          "yml",
+          "yaml",
+          "json"
+        ],
+        "items": [
+          "hosts",
+          "group_vars/raleigh",
+          "group_vars/webservers",
+          "host_vars/foosball"
+        ]
+      }
+    }
+  }
