@@ -6,16 +6,19 @@ import (
 	"log"
 	"os"
 	"runtime"
-
-	"github.com/peterducai/invcomb/cmd/invcomb"
 )
 
 func main() {
 	fmt.Println("inventory combinator")
 
-	invInput := flag.String("input", "define_input_inventories", "inventories to combine")
-	invOutput := flag.String("output", "examples/generated_inventory.yml", "inventory to create from input inventories")
-	singleFile := flag.Bool("singlefile", true, "create single inventory file with all vars included.. dont generate host_vars and group_vars")
+	// invInput := flag.String("input", "define_input_inventories", "inventories to combine")
+	// invOutput := flag.String("output", "examples/generated_inventory.yml", "inventory to create from input inventories")
+	// singleFile := flag.Bool("singlefile", true, "create single inventory file with all vars included.. dont generate host_vars and group_vars")
+
+	inputfile := flag.String("inputfile", "define_input_inventories", "inventories to combine")
+	inputfolder := flag.String("inputfolder", "define_input_inventories", "inventories to combine")
+	outputfile := flag.String("outputfile", "define_input_inventories", "inventories to combine")
+	outputfolder := flag.String("outputfolder", "define_input_inventories", "inventories to combine")
 	flag.Parse()
 
 	dir, err := os.Getwd()
@@ -23,15 +26,17 @@ func main() {
 		log.Fatal(err)
 	}
 
+	fmt.Printf("\n\n Using %s,%s,%s,%s in %s\n", *inputfile, *inputfolder, *outputfile, *outputfolder, dir)
+
 	//PrintMemUsage()
 
-	invcomb.InitInventory(*invOutput)
+	// invcomb.InitInventory(*invOutput)
 
-	invcomb.ProcessInput(*invInput)
+	// invcomb.ProcessInput(*invInput)
 
-	invcomb.WriteInventory(*invOutput, *singleFile)
+	// invcomb.WriteInventory(*invOutput, *singleFile)
 
-	fmt.Printf("\n\ngoing to create %s in %s\n", *invOutput, dir)
+	// fmt.Printf("\n\ngoing to create %s in %s\n", *invOutput, dir)
 
 	// runtime.GC()
 	//PrintMemUsage()
