@@ -1,5 +1,6 @@
 # invcomb
-(Ansible) inventory combinator tool for merging several inventories to one.
+
+(Ansible) inventory combinator tool for merging or splitting inventories.
 
 # install 
 
@@ -10,7 +11,18 @@
 
 # use
 
-> invcomb --input="examples/inventory1.yml,examples/inventory2.yml" --output="xxx.yml"
+## combine file inventories into single file
+
+> invcomb --inputfile="examples/inventory1.yml,examples/inventory2.yml" --outputfile="xxx.yml"
+
+## combine folders into single file
+
+> invcomb --inputfolder="inv1_dir,inv2_dir" --outputfile="alldirs.yml"
+
+## transform single file inventory into folder inventory
+
+> invcomb --inputfile="xxx.yml" --outputfolder="xxx_inventory"
+
 
 # Scenario
 
@@ -24,6 +36,11 @@ INFRASTRUCTURE team creates 10 different/separate environments (and their invent
 
 
  Instead of giving them lab1..10 inventory, they will create combined inventories with meaningful names like **security_dev_inventory** or **pentesting_lab**. Combining these inventories by hand could be error prone and with huge inventories (100 of groups) could be almost impossible, not just regarding time but also regarding avoidance of errors/typos. Another things is that for example pentester team, should not have info about rest of infrastructure, therefor giving them all lab1 to lab10 inventories make it more confusing for them (too many IPs) and less secure for others (they know other hosts!).
+
+
+ # Extras
+
+ Invcomb can be also used to avoid duplicities in inventories.
 
 <!-- see also https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#splitting-out-vars -->
 
