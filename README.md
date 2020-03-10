@@ -9,6 +9,11 @@
 > cd $GOPATH/src/github.com/peterducai/invcomb
 > ./rebuild.sh
 
+# openshift
+
+> oc new-app golang~https://github.com/peterducai/invcomb.git
+
+
 # use
 
 ## combine file inventories into single file
