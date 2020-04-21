@@ -49,7 +49,7 @@ func main() {
 		controllers.WriteSingleInventoryFile(*outputfile, true)
 	}
 
-	fmt.Printf("\n\ngoing to create %s in %s\n", *outputfile, dir)
+	//fmt.Printf("\n\ngoing to create %s in %s\n", *outputfile, dir)
 
 	// runtime.GC()
 	//PrintMemUsage()
