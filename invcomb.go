@@ -45,7 +45,9 @@ func main() {
 
 	controllers.ProcessInput(*inputfile)
 
-	controllers.WriteInventory(*outputfile, true)
+	if *outputfile != "" {
+		controllers.WriteSingleInventoryFile(*outputfile, true)
+	}
 
 	fmt.Printf("\n\ngoing to create %s in %s\n", *outputfile, dir)
 
