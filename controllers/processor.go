@@ -30,9 +30,12 @@ func ProcessInput(inp string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println(dir)
+
 	var allf = dir
 	allf = allf + "/group_vars/all"
+
 	if fileExists(allf) {
 		ReadFile(allf)
 	} else {

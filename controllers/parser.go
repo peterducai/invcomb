@@ -25,3 +25,9 @@ func WriteSingleInventoryFile(path string, single bool) {
 	f.Sync()
 	return
 }
+
+//WriteDirs create directories group_vars and host_vars
+func WriteDirs() {
+	_ = os.Mkdir("group_vars", 0700)
+	_ = os.Mkdir("host_vars", 0700)
+}

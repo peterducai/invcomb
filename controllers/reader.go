@@ -10,6 +10,11 @@ import (
 	"github.com/peterducai/invcomb/models"
 )
 
+//ReadDir reads directory group_vars and host_vars
+func ReadDir(rootdir string) {
+
+}
+
 //ReadFile reads inventory file
 func ReadFile(invfile string) {
 
