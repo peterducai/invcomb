@@ -1,11 +1,21 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 
 	"github.com/peterducai/invcomb/models"
 )
+
+//PrettyPrint prints nicely
+func PrettyPrint(v interface{}) (err error) {
+	b, err := json.MarshalIndent(v, "", "  ")
+	if err == nil {
+		fmt.Println(string(b))
+	}
+	return
+}
 
 //WriteSingleInventoryFile writes file
 func WriteSingleInventoryFile(path string, single bool) {
@@ -18,7 +28,7 @@ func WriteSingleInventoryFile(path string, single bool) {
 
 	defer f.Close()
 
-	if _, err = fmt.Fprintf(f, "%+v", models.Inv); err != nil {
+	if _, err = fmt.Fprintf(f, "%s\n", PrettyPrint(models.Inv)); err != nil {
 		panic(err)
 	}
 
