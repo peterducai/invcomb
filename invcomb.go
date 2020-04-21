@@ -20,7 +20,7 @@ func main() {
 
 	inputfile := flag.String("inputfile", "", "inventory to read")
 	inputfolder := flag.String("inputfolder", "", "folder to read")
-	outputfile := flag.String("outputfile", "", "outputfile")
+	outputfile := flag.String("outputfile", "generated.yml", "outputfile")
 	outputfolder := flag.String("outputfolder", "", "folder to generate")
 	flag.Parse()
 
