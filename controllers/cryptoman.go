@@ -2,7 +2,7 @@
 //
 // Eli Bendersky [https://eli.thegreenplace.net]
 // This code is in the public domain.
-package invcomb
+package controllers
 
 import (
 	"bytes"

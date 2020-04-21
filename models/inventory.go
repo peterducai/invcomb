@@ -1,4 +1,4 @@
-package invcomb
+package models
 
 import (
 	"fmt"
@@ -74,9 +74,9 @@ func indexOfGroup(element string, data Group) int {
 
 func getTotalWeight(dataarr []Group) int {
 	total := 0
-	for _, elem := range dataarr {
-		total += elem.Groups
-	}
+	// for _, elem := range dataarr {
+	// 	total += elem.Inv.Groups
+	// }
 	return total
 }
 

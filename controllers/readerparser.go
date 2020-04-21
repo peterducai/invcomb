@@ -1,4 +1,4 @@
-package invcomb
+package controllers
 
 import (
 	"bufio"
@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"strings"
+
+	"github.com/peterducai/invcomb/models"
 )
 
 var lastGroup = "ungrouped"
@@ -44,7 +46,7 @@ func ProcessInput(inp string) {
 	}
 
 	fmt.Println("===END==============================================")
-	fmt.Printf("%+v\n", Inv)
+	fmt.Printf("%+v\n", models.Inv)
 }
 
 //ReadFile to read inventories
@@ -80,7 +82,7 @@ func ReadFile(invfile string) {
 		} else if strings.HasPrefix(line, "[") {
 			// GROUPS
 			fmt.Printf("\ng- %s", line)
-			AddGroup(line)
+			models.AddGroup(line)
 			fileExists("groupvars/" + line + ".yml") //check if file exist!
 			lastGroup = line
 		} else if strings.HasPrefix(line, "#") || len(line) == 0 || line == "---" {
@@ -119,7 +121,7 @@ func WriteInventory(path string, single bool) {
 
 	defer f.Close()
 
-	if _, err = fmt.Fprintf(f, "%+v", Inv); err != nil {
+	if _, err = fmt.Fprintf(f, "%+v", models.Inv); err != nil {
 		panic(err)
 	}
 

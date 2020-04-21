@@ -6,6 +6,9 @@ import (
 	"log"
 	"os"
 	"runtime"
+
+	"github.com/peterducai/invcomb/controllers"
+	"github.com/peterducai/invcomb/models"
 )
 
 func main() {
@@ -15,11 +18,19 @@ func main() {
 	// invOutput := flag.String("output", "examples/generated_inventory.yml", "inventory to create from input inventories")
 	// singleFile := flag.Bool("singlefile", true, "create single inventory file with all vars included.. dont generate host_vars and group_vars")
 
-	inputfile := flag.String("inputfile", "define_input_inventories", "inventories to combine")
-	inputfolder := flag.String("inputfolder", "define_input_inventories", "inventories to combine")
-	outputfile := flag.String("outputfile", "define_input_inventories", "inventories to combine")
-	outputfolder := flag.String("outputfolder", "define_input_inventories", "inventories to combine")
+	inputfile := flag.String("inputfile", "", "inventory to read")
+	inputfolder := flag.String("inputfolder", "", "folder to read")
+	outputfile := flag.String("outputfile", "", "outputfile")
+	outputfolder := flag.String("outputfolder", "", "folder to generate")
 	flag.Parse()
+
+	if *inputfile == "" {
+		if *inputfolder == "" {
+			fmt.Println("missing input")
+			os.Exit(1)
+		}
+
+	}
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -30,13 +41,13 @@ func main() {
 
 	//PrintMemUsage()
 
-	// invcomb.InitInventory(*invOutput)
+	models.InitInventory(*outputfile)
 
-	// invcomb.ProcessInput(*invInput)
+	controllers.ProcessInput(*inputfile)
 
-	// invcomb.WriteInventory(*invOutput, *singleFile)
+	controllers.WriteInventory(*outputfile, true)
 
-	// fmt.Printf("\n\ngoing to create %s in %s\n", *invOutput, dir)
+	fmt.Printf("\n\ngoing to create %s in %s\n", *outputfile, dir)
 
 	// runtime.GC()
 	//PrintMemUsage()
